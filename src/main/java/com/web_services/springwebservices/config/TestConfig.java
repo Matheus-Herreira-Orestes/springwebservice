@@ -10,9 +10,6 @@ import org.springframework.context.annotation.Profile;
 import com.web_services.springwebservices.entities.User;
 import com.web_services.springwebservices.repositories.UserRepository;
 
-/*
-    Inject data on the h2 Database
- */
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
