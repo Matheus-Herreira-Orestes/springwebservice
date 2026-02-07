@@ -12,7 +12,7 @@ import com.web_services.springwebservices.entities.User;
 import com.web_services.springwebservices.entities.Category;
 import com.web_services.springwebservices.entities.Product;
 import com.web_services.springwebservices.entities.OrderItem;
-
+import com.web_services.springwebservices.entities.Payment;
 import com.web_services.springwebservices.entities.enums.OrderStatus;
 import com.web_services.springwebservices.repositories.UserRepository;
 import com.web_services.springwebservices.repositories.OrderRepository;
@@ -49,6 +49,12 @@ public class TestConfig implements CommandLineRunner {
         Order o2 = new Order(null, java.time.Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.WAITING_PAYMENT,u2);
         Order o3 = new Order(null, java.time.Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT,u1);
         OrderRepository.saveAll(Arrays.asList(o1,o2,o3));
+
+
+        Payment pay1 = new Payment(null, java.time.Instant.parse("2026-06-25T20:25:02Z"), o1);
+        o1.setPayment(pay1);
+
+        OrderRepository.save(o1);
 
         Category cat1 = new Category(null, "Electronics");
         Category cat2 = new Category(null, "Books");
