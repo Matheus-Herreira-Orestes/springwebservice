@@ -3,6 +3,7 @@ package com.web_services.springwebservices.resources;
 import java.net.URI;
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.web_services.springwebservices.entities.User;
 import com.web_services.springwebservices.services.UserServices;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -50,5 +53,11 @@ public class UserResources {
     public ResponseEntity<Void> delete(@PathVariable Long id){
         services.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
+        obj = services.update(id, obj);
+        return ResponseEntity.ok().body(obj);
     }
 }
