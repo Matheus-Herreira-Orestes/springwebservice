@@ -8,6 +8,8 @@ import com.web_services.springwebservices.repositories.UserRepository;
 import com.web_services.springwebservices.services.exceptions.DatabaseException;
 import com.web_services.springwebservices.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -45,9 +47,15 @@ public class UserServices{
     }
 
     public User update (Long id, User obj){
-        User entity = repository.getReferenceById(id);
-        UpdateData(entity,obj);
-        return repository.save(entity);
+        try{
+            User entity = repository.getReferenceById(id);
+            UpdateData(entity,obj);
+            return repository.save(entity);
+
+        }catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+
+        }
     }
 
     private void UpdateData(User entity, User obj) {
